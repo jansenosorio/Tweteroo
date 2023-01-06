@@ -5,12 +5,30 @@ const app = express()
 
 // Server configuration
 
+const PORT = 5000
+
+app.use(express.json())
 app.use(cors())
-app.listen(5000, () => {
-    console.log('Servidor iniciado!')
+app.listen(PORT, () => {
+    console.log(`Servidor iniciado na porta: ${PORT}`)
 })
 
-// Variables from my application
+// Variables of my application
+
+let user = []
+
+
+//Functions of my API
+
 app.get('/', (req, res) => {
     res.send('Hello World')
+})
+
+
+app.post('/sign-up', (req, res) => {
+    let userBody = req.body
+    user = [...user, userBody]
+    res.send("OK")
+
+    console.log(user)
 })
