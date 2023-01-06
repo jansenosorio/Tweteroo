@@ -50,12 +50,12 @@ app.post('/tweets', (req, res) => {
 
         tweets = [...tweets, newTweet]
 
-        console.log(tweets)
-
         res.send("OK")
     }
 })
 
 app.get('/tweets', (req, res) => {
-    res.send(tweets)
+    let newArr = tweets.slice(-10).reverse()
+
+    res.send(newArr)
 })
