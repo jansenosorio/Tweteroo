@@ -15,20 +15,47 @@ app.listen(PORT, () => {
 
 // Variables of my application
 
-let user = []
+let user = [{username: "Jansen", avatar: "www.google.com.br"}]
+let tweets = []
 
 
 //Functions of my API
-
-app.get('/', (req, res) => {
-    res.send('Hello World')
-})
-
-
 app.post('/sign-up', (req, res) => {
     let userBody = req.body
     user = [...user, userBody]
     res.send("OK")
+})
 
-    console.log(user)
+app.post('/tweets', (req, res) => {
+    const {username, tweet} = req.body 
+    let newAvatar = ""
+    let newTweet = ""
+    let isFindUserName = user.find(e => e.username === username)
+
+
+    if (!isFindUserName){
+        res.send("UNAUTHORIZED")
+    } else {
+        user.map(e => {
+            if (username === e.username){
+                newAvatar = e.avatar
+            }
+        })
+
+        newTweet = {
+            username: username,
+            avatar: newAvatar,
+            tweet: tweet
+        }
+
+        tweets = [...tweets, newTweet]
+
+        console.log(tweets)
+
+        res.send("OK")
+    }
+})
+
+app.get('/tweets', (req, res) => {
+    res.send(tweets)
 })
