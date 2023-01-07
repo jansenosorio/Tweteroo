@@ -31,14 +31,13 @@ app.post('/tweets', (req, res) => {
     let newAvatar = ""
     let newTweet = ""
     let isFindUserName = user.find(e => e.username === username)
-
-
+    
     if (!isFindUserName){
         res.send("UNAUTHORIZED")
     } else {
-        user.map(e => {
+        user.forEach(e => {
             if (username === e.username){
-                newAvatar = e.avatar
+                return newAvatar = e.avatar
             }
         })
 
